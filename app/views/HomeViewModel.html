@@ -1,0 +1,122 @@
+<div class="row">
+  <div class="col-xs-4" ng-repeat="Menu in MenuList" ng-if="!Menu.hidden" style="margin-bottom: 10px;">
+    <a class="btn btn-lg btn-primary btn-block" ng-href="#{{Menu.link}}">
+      <span ng-class="Menu.icon"></span>
+      {{Menu.title}}
+    </a>
+  </div>
+</div>
+<div class="row">
+  <!-- 用户信息卡 -->
+  <div class="card" ng-if="User">
+    <img class="avatar" ng-src="{{vm.tempAvatar || User.avatar['_url'] || 'images/anchor.png'}}">
+    <button class="btn btn-xs btn-primary btn-upload" ng-if="vm.editing">
+      <span class="fa fa-photo"></span>
+      选择图片
+      <input type="file" ng-file-select="vm.fnSelectFile($files)" accept="image/jpeg, image/png">
+    </button>
+    <div class="body">
+      <input type="text" class="form-control no-animation" ng-model="vm.tempNickname" ng-if="vm.editing">
+      <h4 ng-if="!vm.editing">
+        <span>{{User.nickname}}</span>
+        <span class="fa fa-android phone-status" ng-class="{'text-primary': User.installationId}" ng-click="vm.fnUnbound()"></span>
+      </h4>
+    </div>
+    <div class="footer">
+      <button class="btn btn-sm btn-default" ng-click="vm.fnToggleQrcodeDialog()" ng-disabled="vm.editing">
+        <span class="fa fa-qrcode"></span>
+        <span>二维码</span>
+      </button>
+      <button class="btn btn-sm btn-info" ng-click="vm.fnEditProfile()" ng-if="!vm.editing">
+        <span class='fa fa-edit'></span>
+        <span>修改</span>
+      </button>
+      <button class="btn btn-sm btn-primary" ng-click="vm.fnUpdateUser()" ng-if="vm.editing">
+        <span class='fa fa-save'></span>
+        <span>保存</span>
+      </button>
+      <button class="btn btn-sm btn-default" ng-click="vm.fnCancelEdit()" ng-if="vm.editing">
+        <span class='fa fa-undo'></span>
+        <span>取消</span>
+      </button>
+      <button class="btn btn-sm btn-danger" ng-click="vm.fnLogout()" ng-disabled="vm.editing">
+        <span class="fa fa-power-off"></span>
+        <span>注销</span>
+      </button>
+    </div>
+  </div>
+  <div class="col-xs-8 col-xs-offset-2">
+      <button class="btn btn-lg btn-info btn-block login-btn" ng-if="!User" ng-click="fnToggleLoginDialog()">登录</button>
+  </div>
+</div>
+<!-- 登录窗口 -->
+<div class="modal fade" id="loginDialog">
+  <div class="modal-dialog modal-sm">
+    <!-- 登录模块 -->
+    <div class="modal-content" ng-if="!formType">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">登录</h4>
+      </div>
+      <div class="modal-body">
+        <form name="loginForm" role="form" ng-if="!formType">
+          <div class="form-group" ng-class="{'has-error':!loginForm.username.$valid}">
+            <label>用户名:</label>
+            <input type="text" name="username" class="form-control" ng-model="vm.av.username" placeholder="请输入用户名" required>
+          </div>
+          <div class="form-group" ng-class="{'has-error':!loginForm.password.$valid}">
+            <label>密码:</label>
+            <input type="password" name="password" class="form-control" ng-model="vm.av.password" placeholder="请输入密码" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <span class="pull-left">还没有账号?<a ng-click="fnToggleForm()">注册</a></span>
+        <button type="button" ng-if="!formType" class="btn btn-primary" ng-disabled="loginForm.$invalid || loading" ng-click="fnLogin()">确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+    <!-- 注册模块 -->
+    <div class="modal-content" ng-if="formType">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">注册新用户</h4>
+      </div>
+      <div class="modal-body">
+        <form name="registerForm" role="form">
+          <div class="form-group" ng-class="{'has-error':!registerForm.username.$valid}">
+            <label>用户名:</label>
+            <input type="text" name="username" class="form-control" ng-model="vm.av.username" placeholder="请输入用户名" required ng-minlength="4" ng-maxlength="18">
+            <span class="help-block" ng-if="registerForm.username.$error.minlength">用户名不少于4位</span>
+            <span class="help-block" ng-if="registerForm.username.$error.maxlength">用户名不大于18位</span>
+          </div>
+          <div class="form-group" ng-class="{'has-error':!registerForm.password.$valid}">
+            <label>密码:</label>
+            <input type="password" name="password" class="form-control" ng-model="vm.av.password" placeholder="请输入密码" required  ng-minlength="6" ng-maxlength="32">
+            <span class="help-block" ng-if="registerForm.password.$error.minlength">密码不少于6位</span>
+            <span class="help-block" ng-if="registerForm.password.$error.maxlength">用户名不大于32位</span>
+          </div>
+          <div class="form-group" ng-class="{'has-error':!registerForm.email.$valid}">
+            <label>邮箱:</label>
+            <input type="email" name="email" class="form-control" ng-model="vm.av.email" placeholder="请输入邮箱" required>
+          </div>
+          <div class="form-group" ng-class="{'has-error':!registerForm.nickname.$valid}">
+            <label>昵称:</label>
+            <input type="text" name="nickname" class="form-control" ng-model="vm.av.nickname" placeholder="请输入昵称" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <span class="pull-left">已有账号?<a ng-click="fnToggleForm()">登陆</a></span>
+        <button type="submit" class="btn btn-primary" ng-disabled="registerForm.$invalid || loading" ng-click="fnRegister()">确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="qrcodeDialog">
+  <div class="modal-dialog">
+    <qrcode version="8" size="200" error-correction-level="M" data="{{vm.encodeString}}"></qrcode>
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

@@ -1,0 +1,47 @@
+<div class="row" ng-init="vm.fnInit()">
+  <div class="col-xs-12 col-xs-offset-0">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">订餐记录
+          <i class="glyphicon glyphicon-exclamation-sign" data-toggle="tooltip" data-placement="right" title=""
+             data-original-title="由于系统限制，这里仅显示已缓存数据"></i>
+        </h3>
+      </div>
+      <div style="height: 350px; overflow-y: auto;">
+        <table class="table table-condensed table-bordered table-hover" style="margin-bottom: 0;">
+          <thead>
+          <tr>
+            <th>日期</th>
+            <th style="width: 150px;">费用归属</th>
+            <th style="width: 150px;">类型</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="Lunch in vm.LunchList | orderBy:'orderDate':true | offset: vm.currentPage*10 | limitTo: 10 ">
+            <td ng-bind="Lunch.orderDate"></td>
+            <td ng-switch="Lunch.costBelong">
+              <span ng-switch-when="1">自费</span>
+              <span ng-switch-when="2">公费</span>
+            </td>
+            <td ng-switch="Lunch.orderType">
+              <span ng-switch-when="1">午餐</span>
+              <span ng-switch-when="2">晚餐</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-footer">
+        <button class="btn btn-xs btn-primary" ng-class="{'disabled': vm.currentPage == 0}" ng-click="vm.prevPage();">
+          <i class="fa fa-chevron-left"></i>上一页</button>
+        <button class="btn btn-xs btn-primary" ng-class="{'disabled': vm.currentPage == vm.maxPage}" ng-click="vm.nextPage();">
+          下一页<i class="fa fa-chevron-right"></i></button>
+        <small class="pull-right">最后更新时间：{{ vm.lastTimestamp | date:'yyyy-MM-dd HH:mm:ss' }}</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-4 col-sm-12 col-md-12 col-lg-12 col-xs-offset-4">
+    <button class="btn btn-block btn-primary" ng-click="vm.fnOrdering()">订餐</button>
+  </div>
+</div>
+<div id="captchaModal" captcha="vm.fnBeforeLogin"></div>

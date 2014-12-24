@@ -1,0 +1,40 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <ul class="media-list">
+      <li class="media" ng-repeat="Chat in vm.chats">
+        <a class="pull-left">
+          <img class="media-object" src="images/anchor.png" width="50">
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading">说:</h4>
+          <p>{{Chat.content}}<span class="pull-right label label-default">{{Chat.timestamp | humanizeDate}}</span></p>
+        </div>
+      </li>
+    </ul>
+	</div>
+</div>
+<div class="row chat-box">
+  <div class="col-lg-12">
+    <div class="input-group">
+      <input type="text" class="form-control" ng-model="vm.message" ng-keypress="vm.fnBeforeSend($event)">
+      <span class="input-group-btn">
+        <button id="sendBtn" class="btn btn-primary" type="button" ng-disabled="!vm.message" ng-click="vm.fnSendMessage($event.target)" data-loading-text="正在发送">发送</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div>
+<div class="modal fade" id="noticeModal" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">免责声明</h4>
+      </div>
+      <div class="modal-body" style="height:450px;">
+        <h2>用户在本软件内发表、转载的任何文字仅代表其个人观点，不代表本软件作者认同其观点。如果存在违反国家相关法律、法规、条例的行为，我们有权在不经作者准许的情况下删除其在该聊天室所发表的言论，或者采取必要的惩罚性措施。</h2>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">我已阅读该声明</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

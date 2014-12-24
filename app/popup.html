@@ -1,0 +1,88 @@
+<!doctype html>
+<html ng-app="qnsofterApp" ng-csp>
+  <head>
+    <meta charset="utf-8">
+    <!-- build:css styles/lib.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger.css" />
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger-theme-future.css" />
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger-theme-flat.css" />
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger-theme-block.css" />
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger-theme-air.css" />
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger-theme-ice.css" />
+    <link rel="stylesheet" href="bower_components/Font-Awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css styles/popup.css -->
+    <link href="styles/popup.css" rel="stylesheet">
+    <!-- endbuild -->
+  </head>
+  <body ng-init="loadConfig()">
+    <div ng-if="loading">
+      <div class="small site-progress"></div>
+    </div>
+    <!-- 导航栏 -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="navbar-header">
+        <a href="#home" class="navbar-brand">
+          <span ng-if="ModuleName" class="fa fa-chevron-left">{{ModuleName}}</span>
+          <span ng-if="!ModuleName" title="版本2.0.9">青牛助手</span>
+        </a>
+      </div>
+    </div>
+    <div class="container ng-view"></div>
+
+    <!-- build:js scripts/lib.min.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/momentjs/moment.js"></script>
+    <script src="bower_components/messenger/build/js/messenger.js"></script>
+    <script src="bower_components/messenger/build/js/messenger-theme-future.js"></script>
+    <script src="bower_components/messenger/build/js/messenger-theme-flat.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/firebase-simple-login/firebase-simple-login.js"></script>
+    <script src="bower_components/angularfire/angularfire.js"></script>
+    <script src="bower_components/qrcode-generator/js/qrcode.js"></script>
+    <script src="bower_components/angular-qrcode/qrcode.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/js-md5/js/md5.js"></script>
+    <script src="bower_components/js-base64/base64.js"></script>
+    <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+    <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
+    <!-- endbower -->
+    <script src="scripts/lib/avos/av.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js scripts/popup.js -->
+    <script src="scripts/popup.js"></script>
+    <!-- modules -->
+    <script src="scripts/modules/AvosModule.js"></script>
+    <script src="scripts/modules/ChromeModule.js"></script>
+    <script src="scripts/modules/IndexedDbModule.js"></script>
+    <script src="scripts/modules/LocalStorageModule.js"></script>
+    <!-- directives -->
+    <script src="scripts/directives/CaptchaDirective.js"></script>
+    <!-- controllers -->
+    <script src="scripts/controllers/AttendanceCtrl.js"></script>
+    <script src="scripts/controllers/ChatCtrl.js"></script>
+    <script src="scripts/controllers/FeedbackCtrl.js"></script>
+    <script src="scripts/controllers/HomeCtrl.js"></script>
+    <script src="scripts/controllers/LunchCtrl.js"></script>
+    <script src="scripts/controllers/MeetingCtrl.js"></script>
+    <script src="scripts/controllers/RestaurantCtrl.js"></script>
+    <script src="scripts/controllers/SettingCtrl.js"></script>
+    <!-- services -->
+    <script src="scripts/services/AttendanceService.js"></script>
+    <script src="scripts/services/HomeService.js"></script>
+    <script src="scripts/services/LunchService.js"></script>
+    <script src="scripts/services/MeetingService.js"></script>
+    <script src="scripts/services/RestaurantService.js"></script>
+    <script src="scripts/services/SettingService.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>

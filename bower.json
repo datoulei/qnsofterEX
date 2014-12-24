@@ -1,0 +1,23 @@
+{
+  "name": "qnsofterex",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "angular": "~1.2.20",
+    "angular-route": "~1.2.20",
+    "bootstrap": "~3.2.0",
+    "momentjs": "~2.7.0",
+    "messenger": "~1.4.1",
+    "Font-Awesome": "~4.1.0",
+    "firebase": "~1.0.17",
+    "angularfire": "~0.7.1",
+    "angular-qrcode": "~3.1.0",
+    "angular-animate": "~1.2.20",
+    "animate.css": "~3.2.0",
+    "js-md5": "~1.1.0",
+    "js-base64": "~2.1.5",
+    "lodash": "~2.4.1",
+    "ng-file-upload": "~1.6.4"
+  },
+  "devDependencies": {}
+}

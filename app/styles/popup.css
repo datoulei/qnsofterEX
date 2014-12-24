@@ -1,0 +1,254 @@
+body{
+    width: 500px;
+    height: 600px;
+    overflow: hidden;
+    background-color: #eeeeee;
+    padding-top: 70px;
+    font-family: 'Microsoft YaHei',sans-serif;
+}
+a{cursor: pointer;}
+a.navbar-brand{
+  color: #FFF !important;
+}
+.modal-dialog{margin: 0;}
+.modal-content{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.btn-lg{
+    padding-left: 0;
+    padding-right: 0;
+}
+td .label{margin-left: 5px;}
+.pointer{cursor: pointer;}
+/* 聊天窗口样式 */
+.media-list{ margin-bottom: 40px;}
+.chat-box{
+    position: fixed;
+    bottom: 4px;
+    margin-right: 0;
+}
+/* 关于我们 样式*/
+.about .media-object{
+    height: 100px;
+    border-radius: 50px;
+    border: solid 2px;
+}
+/* 隐藏滚动条 */
+::-webkit-scrollbar
+{
+    width: 3px;
+    height: 3px;
+}
+::-webkit-scrollbar-track-piece
+{
+    background-color: #ffffff;
+    -webkit-border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:vertical
+{
+    height: 5px;
+    background-color: #999999;
+    -webkit-border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:horizontal
+{
+    width: 5px;
+    background-color: #999999;
+    -webkit-border-radius: 3px;
+}
+/*font face*/
+@font-face {
+    font-family: 'icomoon';
+    src:url('fonts/icomoon.eot?-dauadp');
+    src:url('fonts/icomoon.eot?#iefix-dauadp') format('embedded-opentype'),
+        url('fonts/icomoon.woff?-dauadp') format('woff'),
+        url('fonts/icomoon.ttf?-dauadp') format('truetype'),
+        url('fonts/icomoon.svg?-dauadp#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-pacman:before {
+    content: "\e600";
+}
+
+/* 进度条样式 */
+@-webkit-keyframes spin1 {
+    to {
+        width: 100%;
+        background: transparent
+    }
+}
+
+@keyframes spin1 {
+    to {
+        width: 100%;
+        background: transparent
+    }
+}
+
+@-webkit-keyframes spin2 {
+    to {
+        width: 0;
+        background: #FFFF33
+    }
+}
+
+@keyframes spin2 {
+    to {
+        width: 0;
+        background: #FFFF33
+    }
+}
+
+.site-progress {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+    z-index: 10000;
+    font-size: 12px;
+    text-indent: 999em;
+    overflow: hidden
+}
+
+.site-progress:before,.site-progress:after {
+    display: block;
+    content: '';
+    float: left;
+    width: 50%;
+    height: 100%
+}
+
+.site-progress:before {
+    width: 0;
+    background: #FFFF33;
+    -webkit-animation: spin1 1.2s infinite;
+    animation: spin1 1.2s infinite
+}
+
+.site-progress:after {
+    width: 100%;
+    background: transparent;
+    -webkit-animation: spin2 1.2s infinite;
+    animation: spin2 1.2s infinite
+}
+/* 个人资料卡片 */
+.card {
+  position: relative;
+  width: 94%;
+  margin: 10px auto 20px;
+  padding: 10px 4px 4px 10px;
+  background-color: #fff;
+  border: 1px solid #d8d8d8;
+  box-shadow: 0 0 10px #999;
+  overflow-y: auto;
+}
+.card img.avatar {
+  width: 150px;
+  margin-right: 10px;
+  float: left;
+}
+.card .btn-upload{
+  position: absolute;
+  left: 50px;
+  bottom: 4px;
+  cursor: pointer;
+}
+.btn-upload input{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  font-size: 23px;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+.card .body {
+  float: left;
+}
+.card .footer {
+  float: right;
+  clear: both;
+}
+.phone-status.text-primary {
+  cursor: pointer;
+}
+/* 二维码样式 */
+qrcode {
+  position: absolute;
+  top: 180px;
+  left: 140px;
+  padding: 20px;
+  background: #FFF;
+}
+/* ngAnimate */
+/* table animate */
+tr.ng-enter{
+  -webkit-animation: fadeIn both ease 0.2s;
+}
+tr.ng-leave {
+  -webkit-animation: fadeOut both ease 0.2s;
+}
+/* ngView animate */
+.ng-view.ng-enter{
+  -webkit-animation: ngViewFlipInY .3s ease both;
+  overflow: hidden;
+}
+
+.ng-view.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+.ng-view.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+@-webkit-keyframes ngViewFlipInY{
+  0%{
+    -webkit-transform:perspective(500px) rotateY(90deg);
+    opacity:0
+  }
+  100%{
+    -webkit-transform:perspective(500px) rotateY(0deg);
+    opacity:1
+  }
+}
+/* 个人资料卡动画*/
+.card.ng-leave {
+  -webkit-animation:flipOutX .75s ease both;
+}
+.card.ng-enter {
+  -webkit-animation:flipInX .75s ease both;
+}
+/* 登陆按钮动画 */
+.login-btn.ng-enter {
+  -webkit-animation: flipInX .3s .75s ease both;
+}
+/*无过渡效果*/
+.no-animation.ng-enter,.no-animation.ng-leave{
+  -webkit-transition: all 0 ease 0 !important;
+  -webkit-animation: none 0 ease 0 1 normal !important;
+}
+
+

@@ -1,0 +1,99 @@
+<div class="panel panel-primary" ng-init="vm.fnInit()">
+  <div class="panel-heading">指纹考勤系统</div>
+  <!--<div class="panel-body"></div>-->
+  <ul class="list-group">
+    <li class="list-group-item">
+      <!--<h4 class="list-group-item-heading">登录</h4>-->
+      <div class="col-xs-5">
+        <input type="text" ng-model="vm.attendanceUsername" ng-readonly="vm.attendanceIsLogin" class="form-control" placeholder="请输入账号">
+      </div>
+      <div class="col-xs-5">
+        <input type="password" ng-model="vm.attendancePassword" ng-readonly="vm.attendanceIsLogin" class="form-control" placeholder="请输入密码">
+      </div>
+      <button type="button" class="btn btn-sm btn-primary" data-loading-text="登录中..." ng-if="!vm.attendanceIsLogin" ng-click="vm.fnAttendanceLogin(vm.attendanceUsername,vm.attendancePassword,$event)">登录</button>
+      <button type="button" class="btn btn-sm btn-danger" ng-if="vm.attendanceIsLogin" ng-click="vm.fnAttendanceLogout();">注销</button>
+    </li>
+    <li class="list-group-item" ng-if="vm.attendanceIsLogin">
+      <h4 class="list-group-item-heading">上班提醒&nbsp;
+        <button type="button" class="btn btn-xs btn-default" ng-class="{'active':vm.attendanceWorkOn}" ng-click="vm.fnToggleWorkOn();">开启</button>
+      </h4>
+      <p>该功能开启后,每天启动程序时会自动查询当天考勤,如当天未打卡则立即提醒打卡</p>
+    </li>
+    <li class="list-group-item">
+      <h4 class="list-group-item-heading">手机提醒
+        <small ng-if="!vm.phoneSetting.enable" class="text-danger">请先绑定手机</small>
+      </h4>
+      <div class="row">
+        <label class="col-xs-3">上班提醒:</label>
+        <div class="col-xs-4">
+          <input type="time" class="form-control" ng-model="vm.phoneSetting.workOn">
+        </div>
+        <div class="col-xs-2">
+          <button class="btn btn-sm btn-primary" ng-disabled="!vm.phoneSetting.enable" ng-click="vm.fnSetPhoneAlert('workOn')">设置</button>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-xs-3">下班提醒:</label>
+        <div class="col-xs-4">
+          <input type="time" class="form-control" ng-model="vm.phoneSetting.workOff">
+        </div>
+        <div class="col-xs-2">
+          <button class="btn btn-sm btn-primary" ng-disabled="!vm.phoneSetting.enable" ng-click="vm.fnSetPhoneAlert('workOff')">设置</button>
+        </div>
+      </div>
+    </li>
+    <!--<li class="list-group-item">-->
+      <!--<h4 class="list-group-item-heading">下班提醒</h4>-->
+      <!--<div class="col-xs-5">-->
+        <!--<input type="time" class="form-control">-->
+      <!--</div>-->
+      <!--<button type="button" class="btn btn-sm btn-primary">开启</button>-->
+    <!--</li>-->
+    <!--<li class="list-group-item">-->
+      <!--<h4 class="list-group-item-heading">查询加速<button type="button" class="btn btn-xs btn-primary">开启</button></h4>-->
+      <!--<small>开启后，每天会自动抓取前一天的打卡数据。并且你的每一次查询都会缓存起来。</small>-->
+    <!--</li>-->
+  </ul>
+</div>
+<div class="panel panel-primary hidden">
+  <div class="panel-heading">OA系统</div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <!--<h4 class="list-group-item-heading">登录</h4>-->
+      <div class="col-xs-5">
+        <input type="text" class="form-control" placeholder="请输入账号">
+      </div>
+      <div class="col-xs-5">
+        <input type="password" class="form-control" placeholder="请输入密码">
+      </div>
+      <button type="button" class="btn btn-sm btn-primary">登录</button>
+    </li>
+  </ul>
+</div>
+<div class="panel panel-primary">
+  <div class="panel-heading">安徽青牛信息管理系统
+    <i class="glyphicon glyphicon-exclamation-sign" data-toggle="tooltip" data-placement="right" title=""
+       data-original-title="由于系统限制，这里仅保存账号信息。使用订餐功能和会议室预定功能时仍然需要输入验证码登录"></i>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <!--<h4 class="list-group-item-heading">登录</h4>-->
+      <div class="col-xs-5">
+        <input type="text" class="form-control" ng-model="vm.hysUsername" ng-readonly="vm.hysIsLogin" placeholder="请输入账号">
+      </div>
+      <div class="col-xs-5">
+        <input type="password" class="form-control" ng-model="vm.hysPassword" ng-readonly="vm.hysIsLogin" placeholder="请输入密码">
+      </div>
+      <button type="button" class="btn btn-sm btn-primary" ng-if="!vm.hysIsLogin" ng-click="vm.fnHYSDMSBeforeLogin(vm.hysUsername,vm.hysPassword);">登录</button>
+      <button type="button" class="btn btn-sm btn-danger" ng-if="vm.hysIsLogin" ng-click="vm.fnHYSDMSLogout();">注销</button>
+    </li>
+    <li class="list-group-item">
+      <h4 class="list-group-item-heading">订餐提醒</h4>
+      <div class="col-xs-6">
+        <input type="time" class="form-control" ng-model="vm.hysLunchNotify.time" ng-disabled="!vm.hysLunchNotify.enable"/>
+      </div>
+      <button type="button" class="btn btn-default" ng-class="{'active':vm.hysLunchNotify.enable}" ng-click="vm.hysLunchNotify.enable = !vm.hysLunchNotify.enable">开启</button>
+    </li>
+  </ul>
+</div>
+<div id="captchaModal" captcha="vm.fnHYSDMSLogin"></div>

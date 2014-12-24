@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">考勤记录</div>
+    	<div  style="height: 350px; overflow-y: auto;">
+        <table class="table table-condensed table-bordered table-hover">
+          <thead>
+          <tr>
+            <th width="120">日期</th>
+            <th>星期</th>
+            <th width="160">状态</th>
+            <th width="80">打卡信息</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="Record in vm.RecordList">
+            <td ng-bind="Record.date"></td>
+            <td ng-switch="Record.week">
+              <span ng-switch-when="0" class="badge">周日</span>
+              <span ng-switch-when="1" class="badge">周一</span>
+              <span ng-switch-when="2" class="badge">周二</span>
+              <span ng-switch-when="3" class="badge">周三</span>
+              <span ng-switch-when="4" class="badge">周四</span>
+              <span ng-switch-when="5" class="badge">周五</span>
+              <span ng-switch-when="6" class="badge">周六</span>
+            </td>
+            <td>
+              <span class="label label-info pull-right" ng-if="Record.isOutTime">加班</span>
+              <span class="label label-danger pull-right" ng-if="Record.isLate">迟到</span>
+              <span class="label label-warning pull-right" ng-if="Record.isLateLite && !Record.isLate">轻微迟到</span>
+              <span class="label label-danger pull-right" ng-if="Record.isEarly && Record.date != vm.today">早退</span>
+              <span class="label label-success pull-right" ng-if=" !Record.isLate && !Record.isEarly && !Record.isOutTime && !Record.isLateLite">正常</span>
+            </td>
+            <td align="center">
+              <button class="btn btn-xs btn-primary" ng-click="vm.fnRecordDetail(Record.items)">查看</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+    	</div>
+    </div>
+    <div class="col-xs-4 col-sm-12 col-md-12 col-lg-12 col-xs-offset-4">
+      <button class="btn btn-block btn-primary" ng-click="vm.fnOpenModal('#queryModal')">查询</button>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="queryModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">考勤查询</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-xs-4 text-right">开始日期:</label>
+            <div class="col-xs-6">
+              <input class="form-control" type="date" ng-model="vm.from"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-4 text-right">结束日期:</label>
+            <div class="col-xs-6">
+              <input class="form-control" type="date" ng-model="vm.to"/>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" data-loading-text="正在提交..." ng-click="vm.fnLoadRecord(vm.from,vm.to)">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="recordModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">当日考勤</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="item in vm.ItemList">{{ item }}</li>
+        </ul>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>

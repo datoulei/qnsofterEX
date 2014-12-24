@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-primary">
+      <!-- Default panel contents -->
+      <div class="panel-heading">会议室预定信息
+        <button class="btn btn-xs btn-default pull-right" ng-click="vm.fnLoadRecord(20,$event)" data-loading-text="更新中...">更新</button>
+      </div>
+      <div style="height: 350px; overflow-y: auto;">
+        <!-- Table -->
+        <table class="table table-condensed table-bordered table-hover" ng-init="vm.fnLoadRecord(20)">
+          <thead>
+          <tr>
+            <th width="120">会议室名称
+              <a ng-click="vm.predicate='meetingroom.roomname';vm.reverse = !vm.reverse">
+                <i class="pull-right fa" ng-class="{'fa-sort-up':vm.reverse,'fa-sort-down':!vm.reverse}"></i>
+              </a>
+            </th>
+            <th>开始时间
+              <a ng-click="vm.predicate='startTime';vm.reverse = !vm.reverse">
+                <i class="pull-right fa" ng-class="{'fa-sort-up':vm.reverse,'fa-sort-down':!vm.reverse}"></i>
+              </a>
+            </th>
+            <th>结束时间
+              <a ng-click="vm.predicate='endTime';vm.reverse = !vm.reverse">
+                <i class="pull-right fa" ng-class="{'fa-sort-up':vm.reverse,'fa-sort-down':!vm.reverse}"></i>
+              </a>
+            </th>
+            <th>预约人</th>
+            <th>状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="Meeting in vm.MeetingList | orderBy:vm.predicate:vm.reverse">
+            <td ng-bind="Meeting['meetingroom']['roomname']"></td>
+            <td ng-bind="Meeting['startTime']"></td>
+            <td ng-bind="Meeting['endTime']"></td>
+            <td ng-bind="Meeting['sysUser']['staffName']"></td>
+            <td ng-switch="Meeting['status']">
+              <span ng-switch-when="1" class="label label-info">未开始</span>
+              <span ng-switch-when="2" class="label label-primary">进行中</span>
+              <span ng-switch-when="3" class="label label-default">已结束</span>
+            </td>
+          </tr>
+          <tr ng-if="!vm.MeetingList">
+            <td colspan="5">暂无预定记录</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-4 col-sm-12 col-md-12 col-lg-12 col-xs-offset-4">
+    <button class="btn btn-block btn-primary" ng-click="vm.fnOpenMeetingModal()">预定</button>
+  </div>
+</div>
+<div id="captchaModal" captcha="vm.fnBeforeLoad"></div>
+<div class="modal fade" id="meetingModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">预定会议室</h4>
+			</div>
+			<div class="modal-body">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="col-xs-4 text-right">预约部门:</label>
+              <div class="col-xs-6">
+                <select class="form-control" ng-model="vm.MeetingForm['orderRecord.department.id']" ng-options="Dept.id as Dept.name for Dept in vm.DepartmentList"></select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-4 text-right">预约会议室:</label>
+              <div class="col-xs-6">
+                <select class="form-control" ng-model="vm.MeetingForm['orderRecord.meetingroom.id']" ng-options="Room.id as Room.roomname for Room in vm.MeetingRoomList"></select>
+               </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-4 text-right">开始时间:</label>
+              <div class="col-xs-6">
+                <input class="form-control" type="time" ng-model="vm.MeetingForm['orderRecord.startTime']"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-4 text-right">结束时间:</label>
+              <div class="col-xs-6">
+                <input class="form-control" type="time" ng-model="vm.MeetingForm['orderRecord.endTime']"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-4 text-right">备注:</label>
+              <div class="col-xs-6">
+                <textarea class="form-control" ng-model="vm.MeetingForm['orderRecord.description']" cols="20" rows="5" style="resize: none;" placeholder="请输入备注信息,暂不支持中文。"></textarea>
+              </div>
+            </div>
+        </form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" data-loading-text="正在提交..." ng-click="vm.fnOrderingMeeting(vm.MeetingForm)">提交</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
